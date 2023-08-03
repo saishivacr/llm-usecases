@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 import shutil
 import requests
 from bs4 import BeautifulSoup
@@ -48,8 +49,6 @@ def extract_webpages(url):
     
     return article_text
 
-def ingest(documents):
-    pass
 
 def qna_docs():
     st.write("Upload your documents and type a query to get responses from the document.")
@@ -101,11 +100,14 @@ def qna_docs():
         if st.button("Digest Documents", disabled=not st.session_state.upload_docs_qna):
             st.session_state.db_loaded = False
             with st.spinner("Reading contents of documents..."):
+                start_time = time.time()
                 from vectorstore_db import run_db_build
                 db = run_db_build()
-                print(db)
+                end_time = time.time()
+                exec_time = end_time - start_time
             if db:
-                st.success("Sucecssfully digested the content of the documents ✔️. You can proceed to interact with with your docuemnts.")
+                st.success(f"Sucecssfully digested the content of the documents ✔️. You can proceed to interact with with your docuemnts.\
+                           Executed in {exec_time} seconds")
                 st.session_state.db_loaded = True
         
         query = st.text_input(label="Ask queries from your documents",
