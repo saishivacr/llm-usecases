@@ -63,6 +63,15 @@ def base():
     action = st.sidebar.radio(label="Select an Action", options=["Explore UseCases", "Chat UI"], label_visibility="hidden")
 
     if action == "Explore UseCases":
+        if 'auth_status' not in st.session_state:
+            st.session_state.auth_status = False
+
+        if 'upload_docs_qna' not in st.session_state:
+            st.session_state.upload_docs_qna = False
+
+        if 'db_loaded' not in st.session_state:
+            st.session_state.db_loaded = False
+
         tab1, tab2, tab3 = st.tabs(["Summerize", "Chat with WebContents", "QnA from Documents"])
         with tab1:
             summerize()
@@ -73,14 +82,6 @@ def base():
     else:
         llm_app()
 
-if 'auth_status' not in st.session_state:
-    st.session_state.auth_status = False
-
-if 'upload_docs_qna' not in st.session_state:
-    st.session_state.upload_docs_qna = False
-
-if 'db_loaded' not in st.session_state:
-    st.session_state.db_loaded = False
 
 
 if authentication_status:
