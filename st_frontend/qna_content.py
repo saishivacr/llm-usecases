@@ -93,6 +93,7 @@ def qna_docs():
                     msg.toast(f"Upload Error.", icon="❌")
             else:
                 st.error("Please Login to use this feature")
+                st.session_state.db_loaded = False
         except Exception as e:
             error_msg = f"An error occurred while uploading files: {e}"
             st.exception(error_msg)
