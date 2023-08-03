@@ -20,8 +20,8 @@ def run_db_build():
                                 glob='*.pdf',
                                 loader_cls=PyPDFLoader)
         documents = loader.load()
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=CHUNK_SIZE,
-                                                    chunk_overlap=CHUNK_OVERLAP)
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=int(CHUNK_SIZE),
+                                                    chunk_overlap=int(CHUNK_OVERLAP))
         docs = text_splitter.split_documents(documents)
 
         embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL,
@@ -32,6 +32,8 @@ def run_db_build():
         return vectorstore
     except Exception as e:
         error_msg = f"An error occurred while reading files: {e}"
+        print(error_msg)
         return None
 if __name__ == "__main__":
-    run_db_build()
+    db = run_db_build()
+    print(db)
