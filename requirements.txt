@@ -1,0 +1,5 @@
+# Requirements for using HuggingFace Transformers
+transformers
+requests
+streamlit
+streamlit_authenticator
