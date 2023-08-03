@@ -5,8 +5,6 @@ import requests
 from bs4 import BeautifulSoup
 import streamlit as st
 
-if 'upload_docs_qna' not in st.session_state:
-    st.session_state.upload_docs_qna = False
 
 
 

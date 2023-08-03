@@ -76,6 +76,10 @@ def base():
 if 'auth_status' not in st.session_state:
     st.session_state.auth_status = False
 
+if 'upload_docs_qna' not in st.session_state:
+    st.session_state.upload_docs_qna = False
+
+
 if authentication_status:
     st.session_state.auth_status = True
     
@@ -83,17 +87,7 @@ if authentication_status:
         authenticator.logout('Logout', 'main')
         st.sidebar.write(f'Welcome, **{name}**')
     if username == 'admin':
-        
-        pages =  {
-            #'Train LLM': train,
-            'Try LLM': llm_app
-        }  
-
-        # Add a sidebar to display the page selector
-        selection = st.sidebar.radio("Go to", list(pages.keys()), label_visibility="hidden")
-
-        # Display the selected page content
-        pages[selection]()
+        base()
     elif username == 'user':
         base()
 elif authentication_status == False:
