@@ -104,6 +104,7 @@ def qna_docs():
             with st.spinner("Reading contents of documents..."):
                 from vectorstore_db import run_db_build
                 db = run_db_build()
+                print(db)
             if db:
                 st.success("Sucecssfully digested the content of the documents ✔️. You can proceed to interact with with your docuemnts.")
                 query = st.text_input(label="Ask queries from your documents",
