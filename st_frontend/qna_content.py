@@ -99,20 +99,21 @@ def qna_docs():
             error_msg = f"An error occurred while uploading files: {e}"
             st.exception(error_msg)
 
-    if st.button("Digest Documents", disabled=not st.session_state.upload_docs_qna):
-        st.session_state.db_loaded = False
-        with st.spinner("Reading contents of documents..."):
-            from vectorstore_db import run_db_build
-            db = run_db_build()
-            print(db)
-        if db:
-            st.success("Sucecssfully digested the content of the documents ✔️. You can proceed to interact with with your docuemnts.")
-            st.session_state.db_loaded = True
-    query = st.text_input(label="Ask queries from your documents",
-                    placeholder="Type your query....",
-                    disabled=not st.session_state.db_loaded)
-    if len(query)>0:
-        st.write("Implementing logic to get completion.")
+        if st.button("Digest Documents", disabled=not st.session_state.upload_docs_qna):
+            st.session_state.db_loaded = False
+            with st.spinner("Reading contents of documents..."):
+                from vectorstore_db import run_db_build
+                db = run_db_build()
+                print(db)
+            if db:
+                st.success("Sucecssfully digested the content of the documents ✔️. You can proceed to interact with with your docuemnts.")
+                st.session_state.db_loaded = True
+        
+        query = st.text_input(label="Ask queries from your documents",
+                        placeholder="Type your query....",
+                        disabled=not st.session_state.db_loaded)
+        if len(query)>0:
+            st.write("Implementing logic to get completion.")
 
 
                 
