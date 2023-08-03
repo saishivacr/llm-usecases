@@ -5,8 +5,6 @@ import requests
 from bs4 import BeautifulSoup
 import streamlit as st
 
-if 'db_loaded' not in st.session_state:
-    st.session_state.db_loaded = False
 
 
 # Get the absolute path to the project root directory

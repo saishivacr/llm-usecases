@@ -79,6 +79,9 @@ if 'auth_status' not in st.session_state:
 if 'upload_docs_qna' not in st.session_state:
     st.session_state.upload_docs_qna = False
 
+if 'db_loaded' not in st.session_state:
+    st.session_state.db_loaded = False
+
 
 if authentication_status:
     st.session_state.auth_status = True
