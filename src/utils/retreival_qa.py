@@ -28,6 +28,7 @@ def build_retrieval_qa(llm, prompt, vectordb):
                                        return_source_documents=bool(RETURN_SOURCE_DOCUMENTS),
                                        chain_type_kwargs={'prompt': prompt}
                                        )
+    return dbqa
 
 def llama_dbqa():
     embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL,
