@@ -1,6 +1,5 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from utils.retreival_qa import llama_dbqa
 import time
 
 app = FastAPI()
@@ -17,7 +16,8 @@ async def query_llama_db_qa(data: QueryInput):
         if not query:
             # Raise HTTP 400 Bad Request if data is invalid
             raise HTTPException(status_code=400, detail='Invalid input data')
-        else:
+        else:            
+            from utils.retreival_qa import llama_dbqa
             start_time = time.time()
             llama_dbqa = llama_dbqa()
             res = llama_dbqa({'query': query})
