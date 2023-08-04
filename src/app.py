@@ -3,8 +3,6 @@ from pydantic import BaseModel
 from utils.retreival_qa import llama_dbqa
 import time
 
-llama_dbqa = llama_dbqa()
-
 app = FastAPI()
 
 class QueryInput(BaseModel):
@@ -21,6 +19,7 @@ async def query_llama_db_qa(data: QueryInput):
             raise HTTPException(status_code=400, detail='Invalid input data')
         else:
             start_time = time.time()
+            llama_dbqa = llama_dbqa()
             res = llama_dbqa({'query': query})
             end_time = time.time()
             
