@@ -125,12 +125,20 @@ def qna_docs():
             response = requests.post(API_URL, headers=headers, json=payload)
             if response.status_code == 200:
                 response_json = response.json()
-                reply = response_json['answer']
+                reply_dbqa = response_json['answer_dbqa']
+                reply_genqa = response_json['answer_genqa']
                 source = str(response_json['source_documents'])
                 time = response_json['time_taken']
-                st.markdown(reply)
-                st.markdown(f"<p style='font-size: smaller; color: green;'>Source documents: {source}</p>", unsafe_allow_html=True)
-                st.markdown(f"<p style='font-size: smaller; color: green;'>Time to retrieve response: {time:.4f} seconds", unsafe_allow_html=True)
+                col1, col2 = st.columns([3,2])
+                with col1:
+                    st.markdown("<h4 color: green>Answer from uploaded knowledge_base:</h4>", unsafe_allow_html=True)
+                    st.markdown(reply_dbqa)
+                    st.markdown(f"<p style='font-size: smaller; color: green;'>Source documents: {source}</p>", unsafe_allow_html=True)
+                    st.markdown(f"<p style='font-size: smaller; color: green;'>Time to retrieve response: {time:.4f} seconds", unsafe_allow_html=True)
+                with col2:
+                    st.markdown("<h4 color: green>Answer from known knowledge:</h4>", unsafe_allow_html=True)
+                    st.markdown(reply_genqa)
+
             else:
                 reply = f"Request error: {response.status_code} - {response.text}"
                 st.markdown(reply)

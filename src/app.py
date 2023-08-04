@@ -26,7 +26,7 @@ async def query_llama_db_qa(data: QueryInput):
             
             response = {
                 'answer_dbqa': res_dbqa['result'],
-                ''
+                'answer_genqa': res_gen,
                 'source_documents': [],
                 'time_taken': end_time - start_time
             }
