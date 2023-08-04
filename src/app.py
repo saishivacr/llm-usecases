@@ -22,11 +22,13 @@ async def query_llama_db_qa(data: QueryInput):
             from utils.retreival_qa import llama_dbqa, lamini_dbqa
             if model == "LLAMA2":
                 llm_dbqa, llm_gen = llama_dbqa()
+                res_gen = llm_gen.run(query)
             elif model == "LaMini-Flan-T5":
                 llm_dbqa, llm_gen = lamini_dbqa()
+                res_gen = llm_gen(query)
             start_time = time.time()
             res_dbqa = llm_dbqa({'query': query})
-            res_gen = llm_gen.run(query)
+            
             end_time = time.time()
             
             response = {

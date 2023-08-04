@@ -59,6 +59,6 @@ def lamini_dbqa():
     qa_prompt = set_qa_prompt()
     gen_prompt = set_gen_prompt()
     dbqa = build_retrieval_qa(llm, qa_prompt, vectordb)
-    llm_gen = llm(prompt=gen_prompt, llm=llm)
+    
 
-    return dbqa, llm_gen
+    return dbqa, llm
