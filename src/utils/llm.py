@@ -7,7 +7,7 @@ from transformers import pipeline
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import torch
 from langchain.llms import CTransformers, HuggingFacePipeline
-from load_Vars import *
+from utils.load_Vars import *
 
 def build_llm(llm_name):
 

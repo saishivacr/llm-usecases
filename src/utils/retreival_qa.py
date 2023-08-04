@@ -2,9 +2,9 @@ from langchain import PromptTemplate
 from langchain.chains import RetrievalQA
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
-from prompts import llama_qa_template
-from llm import build_llm
-from load_Vars import *
+from utils.prompts import llama_qa_template
+from utils.llm import build_llm
+from utils.load_Vars import *
 
 def set_qa_prompt():
     """
