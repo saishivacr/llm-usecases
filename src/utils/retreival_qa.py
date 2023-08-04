@@ -45,8 +45,9 @@ def llama_dbqa():
     llm = build_llm("LLAMA2")
     qa_prompt = set_qa_prompt()
     gen_prompt = set_gen_prompt()
-    llm_gen = LLMChain(prompt=gen_prompt, llm=llm)
     dbqa = build_retrieval_qa(llm, qa_prompt, vectordb)
+    llm_gen = LLMChain(prompt=gen_prompt, llm=llm)
+
 
     return dbqa, llm_gen
 
