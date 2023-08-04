@@ -32,6 +32,6 @@ def build_retrieval_qa(llm, prompt, vectordb):
 def llama_dbqa():
     llm = build_llm("LLAMA2")
     qa_prompt = set_qa_prompt()
-    dbqa = build_retrieval_qa(llm, qa_prompt, vectordb)
+    dbqa = build_retrieval_qa(llm, qa_prompt, db_path)
 
     return dbqa
