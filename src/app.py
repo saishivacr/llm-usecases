@@ -6,19 +6,24 @@ app = FastAPI()
 
 class QueryInput(BaseModel):
     query: str
+    model: str
 
 @app.post("/queryllama")
 async def query_llama_db_qa(data: QueryInput):
 
     try:
         query = data.query
+        model = data.model
 
         if not query:
             # Raise HTTP 400 Bad Request if data is invalid
             raise HTTPException(status_code=400, detail='Invalid input data')
         else:            
-            from utils.retreival_qa import llama_dbqa
-            llm_dbqa, llm_gen = llama_dbqa()
+            from utils.retreival_qa import llama_dbqa, lamini_dbqa
+            if model == "LLAMA2":
+                llm_dbqa, llm_gen = llama_dbqa()
+            elif model == "LaMini-Flan-T5":
+                llm_dbqa, llm_gen = lamini_dbqa()
             start_time = time.time()
             res_dbqa = llm_dbqa({'query': query})
             res_gen = llm_gen.run(query)

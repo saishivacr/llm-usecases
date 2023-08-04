@@ -120,7 +120,8 @@ def qna_docs():
             API_URL = "http://localhost:8000/queryllama"
             headers = {'Content-Type': 'application/json'}
             payload = {
-                "query": query
+                "query": query,
+                "model": st.session_state.model_name
             }
             response = requests.post(API_URL, headers=headers, json=payload)
             if response.status_code == 200:

@@ -47,31 +47,32 @@ with st.sidebar:
     )
     name, authentication_status, username = authenticator.login('Login', 'main')
 
+if "model_name" not in st.state:
+    st.session_state.model_name = ''
+
 # Header
 st.header("PRIVATE GPT")
 st.empty().markdown("&nbsp;")
 
 
 def base():
-    models = ["LLAMA2-7B", "LaMini-Flan-T5-783M"]
+    models = ["LLAMA2-13B", "LaMini-Flan-T5-783M"]
     selected = st.sidebar.selectbox(label="Select a model", options=models)
-    if selected == "LLAMA2-7B":
+    if selected == "LLAMA2-13B":
         st.write(f"Selected model is **{selected}**")
+        st.session_state.model_name = "LLAMA2"
     else:
         st.write(f"Selected model is **{selected}**")
+        st.session_state.model_name = "LaMini-Flan-T5"
     
     action = st.sidebar.radio(label="Select an Action", options=["Explore UseCases", "Chat UI"], label_visibility="hidden")
 
     if action == "Explore UseCases":
         if 'auth_status' not in st.session_state:
             st.session_state.auth_status = False
-
-        if 'upload_docs_qna' not in st.session_state:
-            st.session_state.upload_docs_qna = False
-
-        if 'db_loaded' not in st.session_state:
             st.session_state.db_loaded = False
-
+            st.session_state.db_loaded = False
+        
         tab1, tab2, tab3 = st.tabs(["Summerize", "Chat with WebContents", "QnA from Documents"])
         with tab1:
             summerize()

@@ -25,7 +25,7 @@ def build_llm(llm_name):
     elif llm_name == "LaMini-Flan-T5":
         #model and tokenizer loading
         tokenizer = AutoTokenizer.from_pretrained(LAMINI_MODEL_REPO_NAME)
-        base_model = AutoModelForSeq2SeqLM.from_pretrained(checkpoint, device_map='auto', torch_dtype=torch.float32)
+        base_model = AutoModelForSeq2SeqLM.from_pretrained(LAMINI_MODEL_REPO_NAME, device_map='auto', torch_dtype=torch.float32)
 
         pipe = pipeline(
             'text2text-generation',

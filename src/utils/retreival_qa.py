@@ -34,7 +34,7 @@ def build_retrieval_qa(llm, prompt, vectordb):
                                        chain_type='stuff',
                                        retriever=vectordb.as_retriever(search_kwargs={'k': int(VECTOR_COUNT)}),
                                        return_source_documents=bool(RETURN_SOURCE_DOCUMENTS),
-                                       chain_type_kwargs={'prompt': prompt}
+                                       #chain_type_kwargs={'prompt': prompt}
                                        )
     return dbqa
 
@@ -51,3 +51,14 @@ def llama_dbqa():
 
     return dbqa, llm_gen
 
+def lamini_dbqa():
+    embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL,
+                                       model_kwargs={'device': 'cpu'})
+    vectordb = FAISS.load_local(db_path, embeddings)
+    llm = build_llm("LaMini-Flan-T5")
+    qa_prompt = set_qa_prompt()
+    gen_prompt = set_gen_prompt()
+    dbqa = build_retrieval_qa(llm, qa_prompt, vectordb)
+    llm_gen = llm(prompt=gen_prompt, llm=llm)
+
+    return dbqa, llm_gen
