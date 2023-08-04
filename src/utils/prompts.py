@@ -16,3 +16,13 @@ Question: {question}
 Only return the helpful answer below and nothing else.
 Helpful answer:
 """
+
+
+llama_gen_template = """Answer the following question.
+If you don't know the answer, just say that you don't know, don't try to make up an answer.
+
+Question: {question}
+
+Only return the helpful answer below and nothing else.
+Helpful answer:
+"""

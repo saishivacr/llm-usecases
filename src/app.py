@@ -19,17 +19,19 @@ async def query_llama_db_qa(data: QueryInput):
         else:            
             from utils.retreival_qa import llama_dbqa
             start_time = time.time()
-            llama_dbqa = llama_dbqa()
-            res = llama_dbqa({'query': query})
+            llm_dbqa, llm_gen = llama_dbqa()
+            res_dbqa = llm_dbqa({'query': query})
+            res_gen = llm_gen.run(query)
             end_time = time.time()
             
             response = {
-                'answer': res['result'],
+                'answer_dbqa': res_dbqa['result'],
+                ''
                 'source_documents': [],
                 'time_taken': end_time - start_time
             }
 
-            for document in res['source_documents']:
+            for document in res_dbqa['source_documents']:
                 response['source_documents'].append({
                     'source': document.metadata['source'],
                     'content': document.page_content,
