@@ -5,7 +5,7 @@ import shutil
 import requests
 from bs4 import BeautifulSoup
 import streamlit as st
-from utils.load_Vars import *
+from src.utils.load_Vars import *
 
 
 
