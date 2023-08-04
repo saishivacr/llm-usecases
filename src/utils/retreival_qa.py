@@ -5,6 +5,13 @@ from langchain.vectorstores import FAISS
 from utils.prompts import llama_qa_template
 from utils.llm import build_llm
 from utils.load_Vars import *
+import os
+
+# Get the absolute path to the project root directory
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+
+db_path = f"{project_root}/{DB_FAISS_PATH}"
+
 
 def set_qa_prompt():
     """
