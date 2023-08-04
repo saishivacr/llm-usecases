@@ -16,7 +16,7 @@ def build_llm(llm_name):
         llm = CTransformers(model=LLAMA2_MODEL_REPO_NAME,
                             model_file=LLAMA2_MODEL_BIN_FILE,
                             config={'max_new_tokens': int(LLAMA2_MAX_NEW_TOKENS),
-                                    'temperature': int(LLAMA2_TEMPERATURE)}
+                                    'temperature': float(LLAMA2_TEMPERATURE)}
                             )
 
         return llm
@@ -31,7 +31,7 @@ def build_llm(llm_name):
             tokenizer = tokenizer,
             max_length = 512,
             do_sample=True,
-            temperature = int(LAMINI_TEMPERATURE),
+            temperature = float(LAMINI_TEMPERATURE),
             top_p = 0.95
         )
         local_llm = HuggingFacePipeline(pipeline=pipe)
