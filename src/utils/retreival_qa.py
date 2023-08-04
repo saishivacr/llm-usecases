@@ -30,8 +30,11 @@ def build_retrieval_qa(llm, prompt, vectordb):
                                        )
 
 def llama_dbqa():
+    embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL,
+                                       model_kwargs={'device': 'cpu'})
+    vectordb = FAISS.load_local(db_path, embeddings)
     llm = build_llm("LLAMA2")
     qa_prompt = set_qa_prompt()
-    dbqa = build_retrieval_qa(llm, qa_prompt, db_path)
+    dbqa = build_retrieval_qa(llm, qa_prompt, vectordb)
 
     return dbqa
