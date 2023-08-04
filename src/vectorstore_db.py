@@ -12,10 +12,12 @@ from utils.load_Vars import *
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 knowledge_base_path = f"{project_root}/{DATA_PATH}"
+db_path = f"{project_root}/{DB_FAISS_PATH}"
 
 # Build vector database
 def run_db_build():
     try:
+        os.makedirs(db_path, exist_ok=True)
         loader = DirectoryLoader(knowledge_base_path,
                                 glob='*.pdf',
                                 loader_cls=PyPDFLoader)
@@ -28,7 +30,7 @@ def run_db_build():
                                         model_kwargs={'device': 'cpu'})
 
         vectorstore = FAISS.from_documents(docs, embeddings)
-        #vectorstore.save_local(DB_FAISS_PATH)
+        vectorstore.save_local(db_path)
         return vectorstore
     except Exception as e:
         error_msg = f"An error occurred while reading files: {e}"

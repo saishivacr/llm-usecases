@@ -15,6 +15,7 @@ sys.path.insert(0, src_path)
 
 
 knowledge_base_path = f"{project_root}/knowledge_base"
+db_path = f"{project_root}/{DB_FAISS_PATH}"
 
 
 def delete_folder_contents(folder_path):
@@ -61,6 +62,7 @@ def qna_docs():
     if not st.session_state.auth_status:
         st.session_state.upload_docs_qna = False
         delete_folder_contents(knowledge_base_path)
+        delete_folder_contents(db_path)
     len_uploaded_files = len(uploaded_files)
 
     # Validate files and copy to new_files directory
@@ -102,19 +104,39 @@ def qna_docs():
             with st.spinner("Reading contents of documents..."):
                 start_time = time.time()
                 from vectorstore_db import run_db_build
+                
+                if os.path.exists(db_path) and os.path.isdir(db_path): 
+                    delete_folder_contents(db_path)
+                
                 db = run_db_build()
                 end_time = time.time()
                 exec_time = end_time - start_time
             if db:
                 st.success(f"Sucecssfully digested the content of the documents ✔️. You can proceed to interact with with your docuemnts.\
-                           Executed in {exec_time} seconds")
+                           Executed in {exec_time:.4f} seconds")
                 st.session_state.db_loaded = True
         
         query = st.text_input(label="Ask queries from your documents",
                         placeholder="Type your query....",
                         disabled=not st.session_state.db_loaded)
         if len(query)>0:
-            st.write("Implementing logic to get completion.")
+            API_URL = "http://localhost:8000/queryllama"
+            headers = {'Content-Type': 'application/json'}
+            payload = {
+                "query": query
+            }
+            response = requests.post(API_URL, headers=headers, json=payload)
+            if response.status_code == 200:
+                response_json = response.json()
+                reply = response_json['answer']
+                source = str(response_json['source_documents'])
+                time = response_json['time_taken']
+                st.markdown(reply)
+                st.markdown(f"<p style='font-size: smaller; color: green;'>Source documents: {source}</p>", unsafe_allow_html=True)
+                st.markdown(f"<p style='font-size: smaller; color: green;'>Time to retrieve response: {time:.4f} seconds", unsafe_allow_html=True)
+            else:
+                reply = f"Request error: {response.status_code} - {response.text}"
+                st.markdown(reply)
 
 
                 
