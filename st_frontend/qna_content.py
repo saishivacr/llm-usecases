@@ -5,14 +5,13 @@ import shutil
 import requests
 from bs4 import BeautifulSoup
 import streamlit as st
-from utils.load_Vars import *
-
-
 
 # Get the absolute path to the project root directory
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-src_path = os.path.abspath(project_root, "src")
+src_path = os.path.abspath(os.path.join(project_root, "src"))
 sys.path.insert(0, src_path)
+
+from utils.load_Vars import *
 
 
 knowledge_base_path = f"{project_root}/knowledge_base"
