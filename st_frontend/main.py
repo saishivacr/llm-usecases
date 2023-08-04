@@ -47,7 +47,7 @@ with st.sidebar:
     )
     name, authentication_status, username = authenticator.login('Login', 'main')
 
-if "model_name" not in st.state:
+if "model_name" not in st.session_state:
     st.session_state.model_name = ''
 
 # Header
