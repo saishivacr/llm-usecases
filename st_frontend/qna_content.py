@@ -102,15 +102,12 @@ def qna_docs():
         if st.button("Digest Documents", disabled=not st.session_state.upload_docs_qna):
             st.session_state.db_loaded = False
             with st.spinner("Reading contents of documents..."):
-                start_time = time.time()
                 from vectorstore_db import run_db_build
                 
                 if os.path.exists(db_path) and os.path.isdir(db_path): 
                     delete_folder_contents(db_path)
                 
-                db = run_db_build()
-                end_time = time.time()
-                exec_time = end_time - start_time
+                db, exec_time = run_db_build()
             if db:
                 st.success(f"Sucecssfully digested the content of the documents ✔️. You can proceed to interact with with your docuemnts.\
                            Executed in {exec_time:.4f} seconds")

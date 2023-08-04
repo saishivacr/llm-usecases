@@ -7,6 +7,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.embeddings import HuggingFaceEmbeddings
 from utils.load_Vars import *
+import time
 
 # Get the absolute path to the project root directory
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -17,6 +18,7 @@ db_path = f"{project_root}/{DB_FAISS_PATH}"
 # Build vector database
 def run_db_build():
     try:
+        start_time = time.time()
         os.makedirs(db_path, exist_ok=True)
         loader = DirectoryLoader(knowledge_base_path,
                                 glob='*.pdf',
@@ -31,7 +33,8 @@ def run_db_build():
 
         vectorstore = FAISS.from_documents(docs, embeddings)
         vectorstore.save_local(db_path)
-        return vectorstore
+        end_time = time.time()
+        return vectorstore, end_time-start_time
     except Exception as e:
         error_msg = f"An error occurred while reading files: {e}"
         print(error_msg)
