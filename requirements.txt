@@ -11,3 +11,4 @@ pydantic
 uvicorn
 streamlit
 streamlit_authenticator
+bs4

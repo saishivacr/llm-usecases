@@ -18,7 +18,7 @@ def build_llm(llm_name):
                             config={'max_new_tokens': int(LLAMA2_MAX_NEW_TOKENS),
                                     'temperature': float(LLAMA2_TEMPERATURE),
                                     'threads': 8,
-                                    'gpu_layers': 24}
+                                    'gpu_layers': 50}
                             )
 
         return llm
