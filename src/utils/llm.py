@@ -16,7 +16,9 @@ def build_llm(llm_name):
         llm = CTransformers(model=LLAMA2_MODEL_REPO_NAME,
                             model_file=LLAMA2_MODEL_BIN_FILE,
                             config={'max_new_tokens': int(LLAMA2_MAX_NEW_TOKENS),
-                                    'temperature': float(LLAMA2_TEMPERATURE)}
+                                    'temperature': float(LLAMA2_TEMPERATURE),
+                                    'threads': 8,
+                                    'gpu_layers': 24}
                             )
 
         return llm
