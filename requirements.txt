@@ -1,5 +1,13 @@
 # Requirements for using HuggingFace Transformers
 transformers
+langchain
+sentence_transformers
+faiss-cpu
+pypdf
+python-dotenv
 requests
+fastapi
+pydantic
+uvicorn
 streamlit
 streamlit_authenticator
