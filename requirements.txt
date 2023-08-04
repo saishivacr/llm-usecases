@@ -12,3 +12,4 @@ uvicorn
 streamlit
 streamlit_authenticator
 bs4
+pdfminer.six

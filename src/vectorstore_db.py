@@ -4,7 +4,7 @@
 import os
 from langchain.vectorstores import FAISS
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.document_loaders import PyPDFLoader, DirectoryLoader
+from langchain.document_loaders import PyPDFLoader, DirectoryLoader, PDFMinerLoader
 from langchain.embeddings import HuggingFaceEmbeddings
 from utils.load_Vars import *
 import time
@@ -22,7 +22,7 @@ def run_db_build():
         os.makedirs(db_path, exist_ok=True)
         loader = DirectoryLoader(knowledge_base_path,
                                 glob='*.pdf',
-                                loader_cls=PyPDFLoader)
+                                loader_cls=PDFMinerLoader)
         documents = loader.load()
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=int(CHUNK_SIZE),
                                                     chunk_overlap=int(CHUNK_OVERLAP))
